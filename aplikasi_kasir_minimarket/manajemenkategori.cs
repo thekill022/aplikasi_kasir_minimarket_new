@@ -14,7 +14,8 @@ namespace aplikasi_kasir_minimarket
 {
     public partial class manajemenkategori : Form
     {
-        private string connectionStirng = "Data Source=LAPTOP-5DVR7M3S\\GFB_SERVER;Initial Catalog=KasirMinimarket;Integrated Security=True";
+        connection kn = new connection();
+        string connectionStirng = "";
 
         private void loadData()
         {
@@ -79,6 +80,7 @@ namespace aplikasi_kasir_minimarket
         public manajemenkategori(string namaAdmin, string username)
         {
             InitializeComponent();
+            connectionStirng = kn.connectionString();
             this.namaAdmin = namaAdmin;
             this.username= username;
 

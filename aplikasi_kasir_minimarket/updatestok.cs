@@ -13,8 +13,8 @@ namespace aplikasi_kasir_minimarket
 {
     public partial class updatestok : Form
     {
-
-        private string connectionStirng = "Data Source=LAPTOP-5DVR7M3S\\GFB_SERVER;Initial Catalog=KasirMinimarket;Integrated Security=True";
+        connection kn = new connection();
+        string connectionStirng = "";
         private void loadDataProduk(string nama)
         {
 
@@ -53,6 +53,7 @@ namespace aplikasi_kasir_minimarket
         public updatestok(string nama, string username)
         {
             InitializeComponent();
+            connectionStirng = kn.connectionString();
             this.nama = nama;
             this.username = username;
             loadDataProduk("");

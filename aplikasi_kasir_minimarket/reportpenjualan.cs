@@ -32,7 +32,8 @@ namespace aplikasi_kasir_minimarket
 
         private void setupReportViewer()
         {
-            string connectionStirng = "Data Source=LAPTOP-5DVR7M3S\\GFB_SERVER;Initial Catalog=KasirMinimarket;Integrated Security=True;";
+            connection kn = new connection();
+            string connectionStirng = kn.connectionString();
             string query = @"
                 SELECT 
                 p.nama_produk, 

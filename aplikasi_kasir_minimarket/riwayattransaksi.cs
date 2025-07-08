@@ -15,7 +15,8 @@ namespace aplikasi_kasir_minimarket
     public partial class riwayattransaksi : Form
     {
 
-        private string connectionStirng = "Data Source=LAPTOP-5DVR7M3S\\GFB_SERVER;Initial Catalog=KasirMinimarket;Integrated Security=True";
+        connection kn = new connection();
+        string connectionStirng = "";
         private void loadData()
         {
             using (SqlConnection conn = new SqlConnection(connectionStirng))
@@ -89,6 +90,7 @@ namespace aplikasi_kasir_minimarket
         public riwayattransaksi(string nama, string user)
         {
             InitializeComponent();
+            connectionStirng = kn.connectionString();
             this.nama = nama;
             this.user = user;
 

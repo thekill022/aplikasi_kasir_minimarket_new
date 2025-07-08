@@ -216,6 +216,7 @@ namespace aplikasi_kasir_minimarket
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "manajemenkaryawan";
             this.Text = "Manajemen Karyawan";
+            this.Load += new System.EventHandler(this.manajemenkaryawan_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

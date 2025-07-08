@@ -17,10 +17,12 @@ namespace aplikasi_kasir_minimarket
         adminpage admin;
         kasirpage kasir;
 
-        private string connectionStirng = "Data Source=LAPTOP-5DVR7M3S\\GFB_SERVER;Initial Catalog=KasirMinimarket;Integrated Security=True";
+        connection kn = new connection();
+        string connectionStirng = "";
         public loginpage()
         {
             InitializeComponent();
+            connectionStirng = kn.connectionString();
         }
 
         private void label5_Click_1(object sender, EventArgs e)

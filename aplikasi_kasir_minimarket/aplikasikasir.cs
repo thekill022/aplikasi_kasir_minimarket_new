@@ -15,7 +15,8 @@ namespace aplikasi_kasir_minimarket
     public partial class aplikasikasir : Form
     {
 
-        private string connectionStirng = "Data Source=LAPTOP-5DVR7M3S\\GFB_SERVER;Initial Catalog=KasirMinimarket;Integrated Security=True";
+        connection kn = new connection();
+        string connectionStirng = "";
         List<Produk> listBarang = new List<Produk>();
 
         public class Produk
@@ -67,6 +68,7 @@ namespace aplikasi_kasir_minimarket
         public aplikasikasir(string nama, string username)
         {
             InitializeComponent();
+            connectionStirng = kn.connectionString();
             this.nama = nama;
             this.username = username;
             loadData("");

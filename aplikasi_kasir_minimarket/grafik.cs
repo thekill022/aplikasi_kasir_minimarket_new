@@ -15,7 +15,8 @@ namespace aplikasi_kasir_minimarket
 {
     public partial class grafik : Form
     {
-        string connectionString = "Data Source=LAPTOP-5DVR7M3S\\GFB_SERVER;Initial Catalog=KasirMinimarket;Integrated Security=True";
+        connection kn = new connection();
+        string connectionString = "";
         private void chartBulanan()
         {
             chart1.Series.Clear();
@@ -72,6 +73,7 @@ namespace aplikasi_kasir_minimarket
         public grafik(string nama, string username)
         {
             InitializeComponent();
+            connectionString = kn.connectionString();
             this.nama = nama;
             this.username = username;
         }

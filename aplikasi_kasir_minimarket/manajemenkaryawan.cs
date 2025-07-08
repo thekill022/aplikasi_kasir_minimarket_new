@@ -15,7 +15,8 @@ namespace aplikasi_kasir_minimarket
 {
     public partial class manajemenkaryawan : Form
     {
-        private string connectionStirng = "Data Source=LAPTOP-5DVR7M3S\\GFB_SERVER;Initial Catalog=KasirMinimarket;Integrated Security=True";
+        connection kn = new connection();
+        string connectionStirng = "";
         private string namaAdmin;
         private string username;
 
@@ -71,6 +72,7 @@ namespace aplikasi_kasir_minimarket
         public manajemenkaryawan(string namaAdmin, string username)
         {
             InitializeComponent();
+            connectionStirng = kn.connectionString();
             this.namaAdmin = namaAdmin;
             this.username = username;
 
@@ -380,6 +382,11 @@ namespace aplikasi_kasir_minimarket
                     textBox1.Text = row.Cells[1].Value.ToString();
                     textBox2.Text = row.Cells[2].Value.ToString();
                 }
+        }
+
+        private void manajemenkaryawan_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
