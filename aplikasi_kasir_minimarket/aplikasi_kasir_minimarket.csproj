@@ -264,6 +264,12 @@
     <Compile Include="riwayattransaksi.Designer.cs">
       <DependentUpon>riwayattransaksi.cs</DependentUpon>
     </Compile>
+    <Compile Include="setip.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="setip.Designer.cs">
+      <DependentUpon>setip.cs</DependentUpon>
+    </Compile>
     <Compile Include="updatestok.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -316,6 +322,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="riwayattransaksi.resx">
       <DependentUpon>riwayattransaksi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="setip.resx">
+      <DependentUpon>setip.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="updatestok.resx">
       <DependentUpon>updatestok.cs</DependentUpon>

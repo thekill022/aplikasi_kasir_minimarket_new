@@ -54,8 +54,6 @@ namespace aplikasi_kasir_minimarket
             this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.SuspendLayout();
@@ -86,6 +84,7 @@ namespace aplikasi_kasir_minimarket
             this.dataGridView1.Location = new System.Drawing.Point(339, 94);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersWidth = 62;
             this.dataGridView1.Size = new System.Drawing.Size(392, 182);
             this.dataGridView1.TabIndex = 2;
@@ -94,7 +93,7 @@ namespace aplikasi_kasir_minimarket
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(59, 69);
+            this.label3.Location = new System.Drawing.Point(59, 78);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(51, 20);
             this.label3.TabIndex = 3;
@@ -103,7 +102,7 @@ namespace aplikasi_kasir_minimarket
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(59, 98);
+            this.label4.Location = new System.Drawing.Point(59, 107);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(60, 20);
             this.label4.TabIndex = 4;
@@ -112,7 +111,7 @@ namespace aplikasi_kasir_minimarket
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(60, 128);
+            this.label5.Location = new System.Drawing.Point(60, 137);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(50, 20);
             this.label5.TabIndex = 5;
@@ -121,7 +120,7 @@ namespace aplikasi_kasir_minimarket
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(62, 156);
+            this.label6.Location = new System.Drawing.Point(62, 165);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(74, 20);
             this.label6.TabIndex = 6;
@@ -129,7 +128,7 @@ namespace aplikasi_kasir_minimarket
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(145, 154);
+            this.textBox1.Location = new System.Drawing.Point(145, 163);
             this.textBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
@@ -138,7 +137,7 @@ namespace aplikasi_kasir_minimarket
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(145, 123);
+            this.textBox2.Location = new System.Drawing.Point(145, 132);
             this.textBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox2.Name = "textBox2";
             this.textBox2.ReadOnly = true;
@@ -147,16 +146,17 @@ namespace aplikasi_kasir_minimarket
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(145, 94);
+            this.textBox3.Location = new System.Drawing.Point(145, 103);
             this.textBox3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(174, 26);
             this.textBox3.TabIndex = 9;
             this.textBox3.TextChanged += new System.EventHandler(this.textBox3_TextChanged_1);
+            this.textBox3.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox3_KeyPress_1);
             // 
             // textBox4
             // 
-            this.textBox4.Location = new System.Drawing.Point(145, 64);
+            this.textBox4.Location = new System.Drawing.Point(145, 73);
             this.textBox4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox4.Name = "textBox4";
             this.textBox4.ReadOnly = true;
@@ -169,6 +169,7 @@ namespace aplikasi_kasir_minimarket
             this.dataGridView2.Location = new System.Drawing.Point(58, 322);
             this.dataGridView2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dataGridView2.Name = "dataGridView2";
+            this.dataGridView2.ReadOnly = true;
             this.dataGridView2.RowHeadersWidth = 62;
             this.dataGridView2.Size = new System.Drawing.Size(673, 115);
             this.dataGridView2.TabIndex = 13;
@@ -230,7 +231,7 @@ namespace aplikasi_kasir_minimarket
             // 
             // textBox6
             // 
-            this.textBox6.Location = new System.Drawing.Point(339, 65);
+            this.textBox6.Location = new System.Drawing.Point(339, 59);
             this.textBox6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox6.Name = "textBox6";
             this.textBox6.Size = new System.Drawing.Size(295, 26);
@@ -270,31 +271,11 @@ namespace aplikasi_kasir_minimarket
             this.button7.UseVisualStyleBackColor = true;
             this.button7.Click += new System.EventHandler(this.button7_Click_1);
             // 
-            // textBox5
-            // 
-            this.textBox5.Location = new System.Drawing.Point(145, 183);
-            this.textBox5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.ReadOnly = true;
-            this.textBox5.Size = new System.Drawing.Size(174, 26);
-            this.textBox5.TabIndex = 24;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(62, 186);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(63, 20);
-            this.label7.TabIndex = 23;
-            this.label7.Text = "Metode";
-            // 
             // aplikasikasir
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(791, 496);
-            this.Controls.Add(this.textBox5);
-            this.Controls.Add(this.label7);
             this.Controls.Add(this.button7);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.button5);
@@ -349,7 +330,5 @@ namespace aplikasi_kasir_minimarket
         private Button button5;
         private Button button6;
         private Button button7;
-        private TextBox textBox5;
-        private Label label7;
     }
 }

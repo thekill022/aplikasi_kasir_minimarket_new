@@ -1,21 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace aplikasi_kasir_minimarket
 {
     internal class connection
     {
+        public string ipAddress ="";
         public string connectionString()
         {
             string connectionString = "";
 
             try
             {
-                string localIP = getLocalIp();
-                connectionString = $"Data Source={localIP};Initial Catalog=KasirMinimarket;Integrated Security=True";
+                connectionString = $"Data Source={ipAddress};Initial Catalog=KasirMinimarket;User ID=sa;Password=123";
 
                 return connectionString;
             }
@@ -26,17 +28,19 @@ namespace aplikasi_kasir_minimarket
             }
         }
 
-        public static string getLocalIp()
+        public bool isValid()
         {
-            var host = System.Net.Dns.GetHostEntry(System.Net.Dns.GetHostName());
-            foreach (var ip in host.AddressList)
+            try
             {
-                if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
-                {
-                    return ip.ToString();
-                }
+                SqlConnection conn = new SqlConnection(connectionString());
+                conn.Open();
+                return true;
             }
-            throw new Exception("Tidak ada IP ditemukan");
+            catch (SqlException ex)
+            {
+                MessageBox.Show("Connection failed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
         }
     }
 }

@@ -66,13 +66,14 @@ namespace aplikasi_kasir_minimarket
 
                                         object myRole = role.ExecuteScalar();
 
-                                        string getData = "SELECT nama FROM UserMinimart WHERE username=@username AND password=@password";
+                                        string getData = "get_name";
 
                                         MessageBox.Show("Login Berhasil : Welcome mas/mbak", "Berhasil", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                         if (myRole.ToString() == "admin")
                                         {
                                             using (SqlCommand cmdData = new SqlCommand(getData, conn))
                                             {
+                                                cmdData.CommandType = CommandType.StoredProcedure;
                                                 cmdData.Parameters.AddWithValue("@username", textBox1.Text.Trim());
                                                 cmdData.Parameters.AddWithValue("@password", textBox2.Text.Trim());
 
@@ -91,6 +92,7 @@ namespace aplikasi_kasir_minimarket
                                         {
                                             using (SqlCommand cmdData = new SqlCommand(getData, conn))
                                             {
+                                                cmdData.CommandType = CommandType.StoredProcedure;
                                                 cmdData.Parameters.AddWithValue("@username", textBox1.Text.Trim());
                                                 cmdData.Parameters.AddWithValue("@password", textBox2.Text.Trim());
 
@@ -98,7 +100,7 @@ namespace aplikasi_kasir_minimarket
 
                                                 if (reader.Read())
                                                 {
-                                                    string namaUser = reader["nama"].ToString();
+                                                    string namaUser = reader.GetString(0);
                                                     kasir = new kasirpage(namaUser, textBox1.Text.Trim(), "kasir");
                                                     kasir.Show();
                                                     this.Close();

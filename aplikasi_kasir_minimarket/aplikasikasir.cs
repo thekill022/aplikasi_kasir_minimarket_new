@@ -8,13 +8,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace aplikasi_kasir_minimarket
 {
     public partial class aplikasikasir : Form
     {
-
         connection kn = new connection();
         string connectionStirng = "";
         List<Produk> listBarang = new List<Produk>();
@@ -25,26 +23,27 @@ namespace aplikasi_kasir_minimarket
             public int jumlah { get; set; }
             public float harga { get; set; }
             public float subtotal { get; set; }
-            public string metode { get; set; }
+
+            public float HitungSubtotal()
+            {
+                return harga * jumlah;
+            }
         }
+
         private void loadData(string nama)
         {
             using (SqlConnection conn = new SqlConnection(connectionStirng))
             {
                 try
                 {
-
                     string query = "SELECT * FROM Produk WHERE nama_produk LIKE @produk";
                     SqlCommand cmd = new SqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("@produk", "%" + nama + "%");
-
                     SqlDataAdapter da = new SqlDataAdapter(cmd);
                     DataTable dt = new DataTable();
                     da.Fill(dt);
-
                     dataGridView1.AutoGenerateColumns = true;
                     dataGridView1.DataSource = dt;
-
                 }
                 catch (Exception ex)
                 {
@@ -59,12 +58,13 @@ namespace aplikasi_kasir_minimarket
             textBox2.Text = "";
             textBox3.Text = "";
             textBox4.Text = "";
-            textBox5.Text = "";
         }
 
         private string nama;
         private string username;
         private bool isUpdating = false;
+        private string metodePembayaran = "";
+
         public aplikasikasir(string nama, string username)
         {
             InitializeComponent();
@@ -84,10 +84,12 @@ namespace aplikasi_kasir_minimarket
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            if (textBox1.Text != null && textBox1.Text.Trim() != "" && textBox2.Text != null && textBox2.Text.Trim() != "" && textBox3.Text != null && textBox3.Text.Trim() != "" && textBox4.Text != null && textBox4.Text.Trim() != "" && textBox5.Text != null && textBox5.Text.Trim() != "")
+            if (textBox1.Text != null && textBox1.Text.Trim() != "" &&
+                textBox2.Text != null && textBox2.Text.Trim() != "" &&
+                textBox3.Text != null && textBox3.Text.Trim() != "" &&
+                textBox4.Text != null && textBox4.Text.Trim() != "")
             {
                 bool sudahAda = listBarang.Any(p => p.nama.Equals(textBox4.Text.Trim(), StringComparison.OrdinalIgnoreCase));
-
                 if (sudahAda)
                 {
                     MessageBox.Show("Produk sudah ditambahkan ke daftar", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -100,14 +102,11 @@ namespace aplikasi_kasir_minimarket
                     harga = float.Parse(textBox2.Text),
                     jumlah = int.Parse(textBox3.Text),
                     subtotal = float.Parse(textBox1.Text),
-                    metode = textBox5.Text
                 };
 
                 listBarang.Add(item);
-
                 dataGridView2.DataSource = null;
                 dataGridView2.DataSource = listBarang;
-
             }
         }
 
@@ -117,7 +116,8 @@ namespace aplikasi_kasir_minimarket
             if (item != null)
             {
                 item.jumlah = int.Parse(textBox3.Text.Trim());
-                item.metode = textBox5.Text;
+                item.harga = float.Parse(textBox2.Text);
+                item.subtotal = item.HitungSubtotal();
 
                 dataGridView2.DataSource = null;
                 dataGridView2.DataSource = listBarang;
@@ -133,10 +133,8 @@ namespace aplikasi_kasir_minimarket
             if (item != null)
             {
                 listBarang.Remove(item);
-
                 dataGridView2.DataSource = null;
                 dataGridView2.DataSource = listBarang;
-
                 MessageBox.Show("Produk berhasil dihapus", "Berhasil", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 clearForm();
             }
@@ -144,12 +142,14 @@ namespace aplikasi_kasir_minimarket
 
         private void button6_Click_1(object sender, EventArgs e)
         {
-            textBox5.Text = "Tunai";
+            metodePembayaran = "Tunai";
+            MessageBox.Show("Metode pembayaran: Tunai", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void button7_Click_1(object sender, EventArgs e)
         {
-            textBox5.Text = "Non-Tunai";
+            metodePembayaran = "Non-Tunai";
+            MessageBox.Show("Metode pembayaran: Non-Tunai", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void button5_Click_1(object sender, EventArgs e)
@@ -165,6 +165,12 @@ namespace aplikasi_kasir_minimarket
                 return;
             }
 
+            if (string.IsNullOrEmpty(metodePembayaran))
+            {
+                MessageBox.Show("Silakan pilih metode pembayaran terlebih dahulu!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             using (SqlConnection conn = new SqlConnection(connectionStirng))
             {
                 SqlTransaction transaction = null;
@@ -172,26 +178,24 @@ namespace aplikasi_kasir_minimarket
                 {
                     conn.Open();
                     transaction = conn.BeginTransaction();
-                    string query = "create_riwayat";
 
+                    string query = "create_riwayat";
                     SqlCommand cmd = new SqlCommand
                     {
                         Connection = conn,
                         Transaction = transaction
                     };
-
                     cmd.CommandText = query;
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@user", username);
                     cmd.Parameters.AddWithValue("@total", (decimal)listBarang.Sum(item => item.subtotal));
-                    cmd.Parameters.AddWithValue("@metode", textBox5.Text);
+                    cmd.Parameters.AddWithValue("@metode", metodePembayaran);
 
                     int idTransaksi = Convert.ToInt32(cmd.ExecuteScalar());
 
                     foreach (Produk item in listBarang)
                     {
                         string queryDetail = "create_detail";
-
                         SqlCommand cmdDetail = new SqlCommand
                         {
                             Connection = conn,
@@ -213,9 +217,13 @@ namespace aplikasi_kasir_minimarket
 
                     transaction.Commit();
                     MessageBox.Show("Transaksi Berhasil", "Berhasil", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                     listBarang.Clear();
                     dataGridView2.DataSource = null;
                     clearForm();
+                    metodePembayaran = "";
+
+                    loadData("");
                 }
                 catch (Exception ex)
                 {
@@ -237,10 +245,9 @@ namespace aplikasi_kasir_minimarket
             if (e.RowIndex >= 0)
             {
                 DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
-
                 textBox4.Text = row.Cells[1].Value.ToString();
                 textBox2.Text = row.Cells[3].Value.ToString();
-                textBox1.Text = 0.ToString();
+                textBox1.Text = "0";
             }
         }
 
@@ -250,12 +257,10 @@ namespace aplikasi_kasir_minimarket
             {
                 isUpdating = true;
                 DataGridViewRow row = dataGridView2.Rows[e.RowIndex];
-
                 textBox4.Text = row.Cells[0].Value.ToString();
                 textBox3.Text = row.Cells[1].Value.ToString();
                 textBox2.Text = row.Cells[2].Value.ToString();
                 textBox1.Text = row.Cells[3].Value.ToString();
-
                 isUpdating = false;
             }
         }
@@ -273,6 +278,20 @@ namespace aplikasi_kasir_minimarket
             if (string.IsNullOrWhiteSpace(textBox6.Text))
             {
                 loadData("");
+            }
+        }
+
+        private void textBox3_KeyPress_1(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != '\b')
+            {
+                e.Handled = true;
+            }
+
+            TextBox tb = sender as TextBox;
+
+            if (tb.Text == "" && e.KeyChar == '0') { 
+                e.Handled = true;
             }
         }
     }
