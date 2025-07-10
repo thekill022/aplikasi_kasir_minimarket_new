@@ -77,6 +77,14 @@ namespace aplikasi_kasir_minimarket
                 {
 
                     conn.Open();
+
+                    using (SqlCommand setContextCmd = new SqlCommand("EXEC sp_set_session_context @key, @value", conn))
+                    {
+                        setContextCmd.Parameters.AddWithValue("@key", "nama_admin");
+                        setContextCmd.Parameters.AddWithValue("@value", this.nama);
+                        setContextCmd.ExecuteNonQuery();
+                    }
+
                     string query = "UPDATE Produk SET stok = (select stok from Produk where nama_produk=@nama) + @stok WHERE nama_produk=@nama";
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
@@ -139,5 +147,6 @@ namespace aplikasi_kasir_minimarket
         {
             Application.Exit();
         }
+
     }
 }

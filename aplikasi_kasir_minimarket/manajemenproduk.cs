@@ -162,6 +162,14 @@ namespace aplikasi_kasir_minimarket
                     {
                         conn.Open();
                         transaction = conn.BeginTransaction();
+
+                        using (SqlCommand setContextCmd = new SqlCommand("EXEC sp_set_session_context @key, @value", conn, transaction))
+                        {
+                            setContextCmd.Parameters.AddWithValue("@key", "nama_admin");
+                            setContextCmd.Parameters.AddWithValue("@value", this.namaAdmin);
+                            setContextCmd.ExecuteNonQuery();
+                        }
+
                         string query = "add_produk";
                         using (SqlCommand cmd = new SqlCommand
                         {
@@ -219,6 +227,14 @@ namespace aplikasi_kasir_minimarket
                     {
                         conn.Open();
                         transaction = conn.BeginTransaction();
+
+                        using (SqlCommand setContextCmd = new SqlCommand("EXEC sp_set_session_context @key, @value", conn, transaction))
+                        {
+                            setContextCmd.Parameters.AddWithValue("@key", "nama_admin");
+                            setContextCmd.Parameters.AddWithValue("@value", this.namaAdmin);
+                            setContextCmd.ExecuteNonQuery();
+                        }
+
                         string query = "update_produk";
                         using (SqlCommand cmd = new SqlCommand
                         {
@@ -276,6 +292,14 @@ namespace aplikasi_kasir_minimarket
                     {
                         conn.Open();
                         transaction = conn.BeginTransaction();
+
+                        using (SqlCommand setContextCmd = new SqlCommand("EXEC sp_set_session_context @key, @value", conn, transaction))
+                        {
+                            setContextCmd.Parameters.AddWithValue("@key", "nama_admin");
+                            setContextCmd.Parameters.AddWithValue("@value", this.namaAdmin);
+                            setContextCmd.ExecuteNonQuery();
+                        }
+
                         string query = "delete_produk";
                         using (SqlCommand cmd = new SqlCommand
                         {
@@ -364,7 +388,7 @@ namespace aplikasi_kasir_minimarket
 
         private void textBox4_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (char.IsDigit(e.KeyChar) || char.IsLetter(e.KeyChar) || e.KeyChar == '(' || e.KeyChar == ')' || e.KeyChar == (char) Keys.Back)
+            if (char.IsDigit(e.KeyChar) || char.IsLetter(e.KeyChar) || e.KeyChar == '(' || e.KeyChar == ')' || e.KeyChar == (char) Keys.Back || e.KeyChar == ' ')
             {
                 e.Handled = false;
             } else

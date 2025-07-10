@@ -159,6 +159,7 @@ namespace aplikasi_kasir_minimarket
             this.Controls.Add(this.textBox1);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "updatestok";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Update Stok";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.updatestok_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

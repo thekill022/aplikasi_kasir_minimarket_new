@@ -148,6 +148,14 @@ namespace aplikasi_kasir_minimarket
                 {
                     conn.Open();
                     transaction = conn.BeginTransaction();
+
+                    using (SqlCommand setContextCmd = new SqlCommand("EXEC sp_set_session_context @key, @value", conn, transaction))
+                    {
+                        setContextCmd.Parameters.AddWithValue("@key", "nama_admin");
+                        setContextCmd.Parameters.AddWithValue("@value", this.nama);
+                        setContextCmd.ExecuteNonQuery();
+                    }
+
                     string query = "delete_riwayat";
                     SqlCommand cmd = new SqlCommand
                     {

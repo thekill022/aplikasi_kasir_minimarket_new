@@ -68,6 +68,7 @@ namespace aplikasi_kasir_minimarket
             // 
             // textBox4
             // 
+            this.textBox4.ImeMode = System.Windows.Forms.ImeMode.Disable;
             this.textBox4.Location = new System.Drawing.Point(128, 96);
             this.textBox4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox4.Name = "textBox4";
