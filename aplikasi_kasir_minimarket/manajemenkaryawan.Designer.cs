@@ -116,6 +116,7 @@ namespace aplikasi_kasir_minimarket
             this.dataGridView1.Location = new System.Drawing.Point(385, 76);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersWidth = 62;
             this.dataGridView1.Size = new System.Drawing.Size(407, 340);
             this.dataGridView1.TabIndex = 7;
@@ -215,7 +216,9 @@ namespace aplikasi_kasir_minimarket
             this.Controls.Add(this.label1);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "manajemenkaryawan";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Manajemen Karyawan";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.manajemenkaryawan_FormClosed);
             this.Load += new System.EventHandler(this.manajemenkaryawan_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);

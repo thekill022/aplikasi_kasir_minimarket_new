@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace aplikasi_kasir_minimarket
 {
@@ -35,8 +36,18 @@ namespace aplikasi_kasir_minimarket
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error : " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(
+                        "Terjadi kesalahan saat memuat data transaksi.\n\n" +
+                        "Pesan: " + ex.Message +
+                        "\n\nPastikan koneksi database sudah benar dan coba lagi.",
+                        "Kesalahan Memuat Data",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+                    adminpage form = new adminpage(nama, user, "admin");
+                    form.Show();
+                    this.Hide();
                 }
+
             }
         }
 
@@ -44,21 +55,26 @@ namespace aplikasi_kasir_minimarket
         {
             using (SqlConnection conn = new SqlConnection(connectionStirng))
             {
+                try
+                {
+                    conn.Open();
+                    string query = "load_detail";
 
-                conn.Open();
-                string query = "load_detail";
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@id", id);
 
-                SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@id", id);
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
 
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
-                DataTable dt = new DataTable();
+                    da.Fill(dt);
 
-                da.Fill(dt);
-
-                dataGridView2.AutoGenerateColumns = true;
-                dataGridView2.DataSource = dt;
+                    dataGridView2.AutoGenerateColumns = true;
+                    dataGridView2.DataSource = dt;
+                }
+                catch (Exception ex) {
+                    MessageBox.Show("Kesalahan dalam mengoneksikan ke database. Pastikan terhubung ke jaringan yang sama.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -112,7 +128,7 @@ namespace aplikasi_kasir_minimarket
         {
             adminpage admin = new adminpage(nama, user, "admin");
             admin.Show();
-            this.Close();
+            this.Hide();
         }
 
         private void button2_Click_1(object sender, EventArgs e)
@@ -165,6 +181,11 @@ namespace aplikasi_kasir_minimarket
                 MessageBox.Show("Pilih data terlebih dahulu", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
+        }
+
+        private void riwayattransaksi_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

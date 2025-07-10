@@ -70,7 +70,7 @@ namespace aplikasi_kasir_minimarket
             this.button1.Location = new System.Drawing.Point(608, 9);
             this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button1.Name = "button1";
-            this.button1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button1.Padding = new System.Windows.Forms.Padding(4);
             this.button1.Size = new System.Drawing.Size(101, 40);
             this.button1.TabIndex = 4;
             this.button1.Text = "Logout";
@@ -139,7 +139,9 @@ namespace aplikasi_kasir_minimarket
             this.Controls.Add(this.pictureBox1);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "kasirpage";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Dashboard";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.kasirpage_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();

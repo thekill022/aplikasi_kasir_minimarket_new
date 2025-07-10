@@ -47,7 +47,10 @@ namespace aplikasi_kasir_minimarket
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error : " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Kesalahan dalam mengoneksikan ke database. Pastikan terhubung ke jaringan yang sama.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    adminpage form = new adminpage(nama, username, "admin");
+                    form.Show();
+                    this.Hide();
                 }
             }
         }
@@ -228,7 +231,7 @@ namespace aplikasi_kasir_minimarket
                 catch (Exception ex)
                 {
                     transaction?.Rollback();
-                    MessageBox.Show("Error : " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Kesalahan dalam pengiriman data ke database. Pastikan jaringan tidak terputus selama transaksi.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -237,7 +240,7 @@ namespace aplikasi_kasir_minimarket
         {
             kasirpage kasir = new kasirpage(nama, username, "kasir");
             kasir.Show();
-            this.Close();
+            this.Hide();
         }
 
         private void dataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
@@ -293,6 +296,16 @@ namespace aplikasi_kasir_minimarket
             if (tb.Text == "" && e.KeyChar == '0') { 
                 e.Handled = true;
             }
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            loadData("");
+        }
+
+        private void aplikasikasir_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

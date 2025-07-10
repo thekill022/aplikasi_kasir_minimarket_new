@@ -26,21 +26,26 @@ namespace aplikasi_kasir_minimarket
         {
             aplikasikasir kasir = new aplikasikasir(nama, username);
             kasir.Show();
-            this.Close();
+            this.Hide();
         }
 
         private void pictureBox3_Click_1(object sender, EventArgs e)
         {
             updatestok update = new updatestok(nama, username);
             update.Show();
-            this.Close();
+            this.Hide();
         }
 
         private void button1_Click_1(object sender, EventArgs e)
         {
             loginpage form3 = new loginpage();
             form3.Show();
-            this.Close();
+            this.Hide();
+        }
+
+        private void kasirpage_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

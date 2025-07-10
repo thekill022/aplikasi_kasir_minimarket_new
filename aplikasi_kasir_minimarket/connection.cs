@@ -10,14 +10,13 @@ namespace aplikasi_kasir_minimarket
 {
     internal class connection
     {
-        public string ipAddress ="";
         public string connectionString()
         {
             string connectionString = "";
 
             try
             {
-                connectionString = $"Data Source={ipAddress};Initial Catalog=KasirMinimarket;User ID=sa;Password=123";
+                connectionString = $"Data Source=10.33.76.77;Initial Catalog=KasirMinimarket;User ID=sa;Password=123";
 
                 return connectionString;
             }

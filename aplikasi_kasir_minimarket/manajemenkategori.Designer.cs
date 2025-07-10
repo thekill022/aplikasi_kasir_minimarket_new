@@ -79,6 +79,7 @@ namespace aplikasi_kasir_minimarket
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(332, 26);
             this.textBox2.TabIndex = 4;
+            this.textBox2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox2_KeyPress);
             // 
             // label3
             // 
@@ -94,7 +95,7 @@ namespace aplikasi_kasir_minimarket
             this.button1.Location = new System.Drawing.Point(207, 150);
             this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(101, 27);
+            this.button1.Size = new System.Drawing.Size(101, 35);
             this.button1.TabIndex = 5;
             this.button1.Text = "Tambah";
             this.button1.UseVisualStyleBackColor = true;
@@ -105,7 +106,7 @@ namespace aplikasi_kasir_minimarket
             this.button2.Location = new System.Drawing.Point(330, 150);
             this.button2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(101, 27);
+            this.button2.Size = new System.Drawing.Size(101, 35);
             this.button2.TabIndex = 6;
             this.button2.Text = "Edit";
             this.button2.UseVisualStyleBackColor = true;
@@ -116,7 +117,7 @@ namespace aplikasi_kasir_minimarket
             this.button3.Location = new System.Drawing.Point(454, 150);
             this.button3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(101, 27);
+            this.button3.Size = new System.Drawing.Size(101, 35);
             this.button3.TabIndex = 7;
             this.button3.Text = "Hapus";
             this.button3.UseVisualStyleBackColor = true;
@@ -125,9 +126,10 @@ namespace aplikasi_kasir_minimarket
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(38, 191);
+            this.dataGridView1.Location = new System.Drawing.Point(38, 201);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersWidth = 62;
             this.dataGridView1.Size = new System.Drawing.Size(646, 145);
             this.dataGridView1.TabIndex = 8;
@@ -160,7 +162,9 @@ namespace aplikasi_kasir_minimarket
             this.Controls.Add(this.label1);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "manajemenkategori";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Manajemen Kategori";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.manajemenkategori_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

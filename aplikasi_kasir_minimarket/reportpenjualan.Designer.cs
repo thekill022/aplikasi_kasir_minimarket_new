@@ -34,14 +34,14 @@ namespace aplikasi_kasir_minimarket
             this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.dataTable2BindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.reportViewer1 = new Microsoft.Reporting.WinForms.ReportViewer();
             this.dataSet1 = new aplikasi_kasir_minimarket.DataSet1();
             this.dataTable1BindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dataTable1TableAdapter = new aplikasi_kasir_minimarket.DataSet1TableAdapters.DataTable1TableAdapter();
-            this.dataTable2BindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.reportViewer1 = new Microsoft.Reporting.WinForms.ReportViewer();
+            ((System.ComponentModel.ISupportInitialize)(this.dataTable2BindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataTable1BindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataTable2BindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -64,6 +64,15 @@ namespace aplikasi_kasir_minimarket
             this.label2.TabIndex = 1;
             this.label2.Text = "Report Penjualan";
             // 
+            // reportViewer1
+            // 
+            this.reportViewer1.Location = new System.Drawing.Point(35, 80);
+            this.reportViewer1.Name = "reportViewer1";
+            this.reportViewer1.ServerReport.BearerToken = null;
+            this.reportViewer1.Size = new System.Drawing.Size(792, 417);
+            this.reportViewer1.TabIndex = 2;
+            this.reportViewer1.Load += new System.EventHandler(this.reportViewer1_Load_1);
+            // 
             // dataSet1
             // 
             this.dataSet1.DataSetName = "DataSet1";
@@ -77,16 +86,6 @@ namespace aplikasi_kasir_minimarket
             // dataTable1TableAdapter
             // 
             this.dataTable1TableAdapter.ClearBeforeFill = true;
-
-            // 
-            // reportViewer1
-            // 
-            this.reportViewer1.Location = new System.Drawing.Point(35, 80);
-            this.reportViewer1.Name = "reportViewer1";
-            this.reportViewer1.ServerReport.BearerToken = null;
-            this.reportViewer1.Size = new System.Drawing.Size(792, 417);
-            this.reportViewer1.TabIndex = 2;
-            this.reportViewer1.Load += new System.EventHandler(this.reportViewer1_Load_1);
             // 
             // reportpenjualan
             // 
@@ -98,7 +97,10 @@ namespace aplikasi_kasir_minimarket
             this.Controls.Add(this.label1);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "reportpenjualan";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "repotpenjualan";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.reportpenjualan_FormClosed);
+            ((System.ComponentModel.ISupportInitialize)(this.dataTable2BindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataTable1BindingSource)).EndInit();
             this.ResumeLayout(false);

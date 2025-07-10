@@ -19,6 +19,17 @@ namespace aplikasi_kasir_minimarket
         string connectionStirng = "";
         private string namaAdmin;
         private string username;
+        private bool IsValidNama(string nama)
+        {
+            // hanya huruf A-Z atau a-z dan spasi
+            return System.Text.RegularExpressions.Regex.IsMatch(nama, @"^[a-zA-Z\s]+$");
+        }
+
+        private bool IsValidUsername(string username)
+        {
+            // hanya huruf dan angka
+            return System.Text.RegularExpressions.Regex.IsMatch(username, @"^[a-zA-Z0-9]+$");
+        }
 
         private void clearForm()
         {
@@ -46,8 +57,20 @@ namespace aplikasi_kasir_minimarket
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error : " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+
+                    MessageBox.Show(
+            "Terjadi masalah saat memproses data\n." +
+            "Silakan coba lagi atau hubungi admin jika masalah terus berlanjut.",
+            "Kesalahan Sistem",
+            MessageBoxButtons.OK,
+            MessageBoxIcon.Warning
+            );
+                    adminpage form = new adminpage(namaAdmin, username, "admin");
+                    form.Show();
+                    this.Hide();
                 }
+
             }
         }
 
@@ -82,14 +105,14 @@ namespace aplikasi_kasir_minimarket
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            
+
         }
 
         private void label6_Click_1(object sender, EventArgs e)
         {
             adminpage admin = new adminpage(namaAdmin, username, "admin");
             admin.Show();
-            this.Close();
+            this.Hide();
         }
 
         private void button1_Click_1(object sender, EventArgs e)
@@ -115,7 +138,25 @@ namespace aplikasi_kasir_minimarket
 
                     cmd.ExecuteNonQuery();
 
-                    if (textBox1.Text != null && textBox1.Text.Trim() != "" && textBox2.Text != null && textBox2.Text.Trim() != "" && textBox3.Text != null && textBox3.Text.Trim() != "")
+                    if (string.IsNullOrWhiteSpace(textBox1.Text) ||
+                    string.IsNullOrWhiteSpace(textBox2.Text) ||
+                    string.IsNullOrWhiteSpace(textBox3.Text))
+                    {
+                        MessageBox.Show("Semua field wajib diisi.", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+
+                    if (!IsValidNama(textBox1.Text))
+                    {
+                        MessageBox.Show("Nama hanya boleh mengandung huruf dan spasi.", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+
+                    if (!IsValidUsername(textBox2.Text))
+                    {
+                        MessageBox.Show("Username hanya boleh mengandung huruf dan angka tanpa spasi atau simbol.", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
                     {
                         using (SqlCommand cmdadd = new SqlCommand
                         {
@@ -152,7 +193,14 @@ namespace aplikasi_kasir_minimarket
                 catch (Exception ex)
                 {
                     transaction?.Rollback();
-                    MessageBox.Show("Error : " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(
+                        "Terjadi masalah saat memproses data.\n" +
+                        "Silakan coba lagi atau hubungi admin jika masalah terus berlanjut.",
+                        "Kesalahan Sistem",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning
+                    );
+
                     clearForm();
                 }
             }
@@ -160,7 +208,25 @@ namespace aplikasi_kasir_minimarket
 
         private void button2_Click_1(object sender, EventArgs e)
         {
-            if (textBox1.Text != null && textBox1.Text.Trim() != "" && textBox2.Text != null && textBox2.Text.Trim() != "")
+            if (string.IsNullOrWhiteSpace(textBox1.Text) ||
+    string.IsNullOrWhiteSpace(textBox2.Text))
+            {
+                MessageBox.Show("Nama dan Username wajib diisi.", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (!IsValidNama(textBox1.Text))
+            {
+                MessageBox.Show("Nama hanya boleh mengandung huruf dan spasi.", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (!IsValidUsername(textBox2.Text))
+            {
+                MessageBox.Show("Username hanya boleh mengandung huruf dan angka tanpa spasi atau simbol.", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             {
                 using (SqlConnection conn = new SqlConnection(connectionStirng))
                 {
@@ -217,15 +283,18 @@ namespace aplikasi_kasir_minimarket
                     catch (Exception ex)
                     {
                         transaction?.Rollback();
-                        MessageBox.Show("Error : " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(
+                            "Terjadi kesalahan saat mengubah data karyawan.\nPastikan data sudah benar dan coba lagi." +
+                            "Silakan coba lagi atau hubungi admin jika masalah terus berlanjut.",
+                            "Kesalahan Sistem",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning
+                        );
+
                         clearForm();
                     }
 
                 }
-            }
-            else
-            {
-                MessageBox.Show("Username atau nama tidak boleh kosong", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -289,7 +358,15 @@ namespace aplikasi_kasir_minimarket
                         catch (Exception ex)
                         {
                             transaction?.Rollback();
-                            MessageBox.Show("Error : " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show(
+                                "Gagal menonaktifkan akun.\nPastikan akun yang dipilih benar." +
+                                "Silakan coba lagi atau hubungi admin jika masalah terus berlanjut.",
+                                "Kesalahan Sistem",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning
+                            );
+                        
+
                             clearForm();
                         }
                     }
@@ -360,7 +437,14 @@ namespace aplikasi_kasir_minimarket
                         catch (Exception ex)
                         {
                             transaction?.Rollback();
-                            MessageBox.Show("Error : " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show(
+                                "Gagal mengaktifkan akun.\nSilakan coba lagi nanti." +
+                                "Silakan coba lagi atau hubungi admin jika masalah terus berlanjut.",
+                                "Kesalahan Sistem",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning
+                            );
+
                             clearForm();
                         }
                     }
@@ -374,19 +458,24 @@ namespace aplikasi_kasir_minimarket
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-                if (e.RowIndex >= 0)
-                {
-                    DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
 
-                    textBox4.Text = row.Cells[0].Value.ToString();
-                    textBox1.Text = row.Cells[1].Value.ToString();
-                    textBox2.Text = row.Cells[2].Value.ToString();
-                }
+                textBox4.Text = row.Cells[0].Value.ToString();
+                textBox1.Text = row.Cells[1].Value.ToString();
+                textBox2.Text = row.Cells[2].Value.ToString();
+            }
         }
 
         private void manajemenkaryawan_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void manajemenkaryawan_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

@@ -165,7 +165,9 @@ namespace aplikasi_kasir_minimarket
             this.Controls.Add(this.label1);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "grafik";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Grafik Penjualan";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.grafik_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

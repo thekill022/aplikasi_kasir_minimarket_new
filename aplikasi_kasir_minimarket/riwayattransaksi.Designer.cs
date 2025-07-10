@@ -90,6 +90,7 @@ namespace aplikasi_kasir_minimarket
             this.dataGridView1.Location = new System.Drawing.Point(72, 192);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersWidth = 62;
             this.dataGridView1.Size = new System.Drawing.Size(273, 180);
             this.dataGridView1.TabIndex = 7;
@@ -122,6 +123,7 @@ namespace aplikasi_kasir_minimarket
             this.dataGridView2.Location = new System.Drawing.Point(412, 192);
             this.dataGridView2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dataGridView2.Name = "dataGridView2";
+            this.dataGridView2.ReadOnly = true;
             this.dataGridView2.RowHeadersWidth = 62;
             this.dataGridView2.Size = new System.Drawing.Size(349, 180);
             this.dataGridView2.TabIndex = 10;
@@ -161,7 +163,9 @@ namespace aplikasi_kasir_minimarket
             this.Controls.Add(this.label1);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "riwayattransaksi";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Riwayat Transaksi";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.riwayattransaksi_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.ResumeLayout(false);

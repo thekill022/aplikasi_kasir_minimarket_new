@@ -26,42 +26,42 @@ namespace aplikasi_kasir_minimarket
         {
             loginpage form3 = new loginpage();
             form3.Show();
-            this.Close();
+            this.Hide();
         }
 
         private void pictureBox2_Click_1(object sender, EventArgs e)
         {
             manajemenkaryawan karyawan = new manajemenkaryawan(namaAdmin, username);
             karyawan.Show();
-            this.Close();
+            this.Hide();
         }
 
         private void pictureBox4_Click_1(object sender, EventArgs e)
         {
             manajemenkategori kategori = new manajemenkategori(namaAdmin, username);
             kategori.Show();
-            this.Close();
+            this.Hide();
         }
 
         private void pictureBox6_Click_1(object sender, EventArgs e)
         {
             grafik Grafik = new grafik(namaAdmin, username);
             Grafik.Show();
-            this.Close();
+            this.Hide();
         }
 
         private void pictureBox3_Click_1(object sender, EventArgs e)
         {
             manajemenproduk produk = new manajemenproduk(namaAdmin, username);
             produk.Show();
-            this.Close();
+            this.Hide();
         }
 
         private void pictureBox5_Click_1(object sender, EventArgs e)
         {
             riwayattransaksi transaksi = new riwayattransaksi(namaAdmin, username);
             transaksi.Show();
-            this.Close();
+            this.Hide();
         }
 
         private void pictureBox7_Click_1(object sender, EventArgs e)
@@ -69,6 +69,11 @@ namespace aplikasi_kasir_minimarket
             reportpenjualan report = new reportpenjualan(namaAdmin, username);
             report.Show();
             this.Hide();
+        }
+
+        private void adminpage_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

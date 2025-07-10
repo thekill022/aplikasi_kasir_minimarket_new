@@ -29,7 +29,7 @@ namespace aplikasi_kasir_minimarket
         {
             welcomepage form1 = new welcomepage();
             form1.Show();
-            this.Close();
+            this.Hide();
         }
 
         private void checkBox1_CheckedChanged_1(object sender, EventArgs e)
@@ -84,7 +84,7 @@ namespace aplikasi_kasir_minimarket
                                                     string namaUser = reader["nama"].ToString();
                                                     admin = new adminpage(namaUser, textBox1.Text.Trim(), "admin");
                                                     admin.Show();
-                                                    this.Close();
+                                                    this.Hide();
                                                 }
                                             }
                                         }
@@ -103,7 +103,7 @@ namespace aplikasi_kasir_minimarket
                                                     string namaUser = reader.GetString(0);
                                                     kasir = new kasirpage(namaUser, textBox1.Text.Trim(), "kasir");
                                                     kasir.Show();
-                                                    this.Close();
+                                                    this.Hide();
                                                 }
                                             }
                                         }
@@ -119,7 +119,7 @@ namespace aplikasi_kasir_minimarket
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Error : " + ex.Message, "Kesalahan", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Kegagalan melakukan koneksi ke database. Pastikan menggunakan jaringan yang sama.", "Kesalahan", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
@@ -127,6 +127,11 @@ namespace aplikasi_kasir_minimarket
             {
                 MessageBox.Show("Username dan Password tidak boleh kosong", "Value Empty", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+        }
+
+        private void loginpage_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

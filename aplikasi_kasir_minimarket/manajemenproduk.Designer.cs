@@ -73,6 +73,7 @@ namespace aplikasi_kasir_minimarket
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(237, 26);
             this.textBox4.TabIndex = 12;
+            this.textBox4.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox4_KeyPress);
             // 
             // label3
             // 
@@ -117,6 +118,7 @@ namespace aplikasi_kasir_minimarket
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(237, 26);
             this.textBox2.TabIndex = 17;
+            this.textBox2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox2_KeyPress_1);
             // 
             // label5
             // 
@@ -133,6 +135,7 @@ namespace aplikasi_kasir_minimarket
             this.dataGridView1.Location = new System.Drawing.Point(390, 79);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersWidth = 62;
             this.dataGridView1.Size = new System.Drawing.Size(299, 182);
             this.dataGridView1.TabIndex = 18;
@@ -145,6 +148,7 @@ namespace aplikasi_kasir_minimarket
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(237, 26);
             this.textBox3.TabIndex = 19;
+            this.textBox3.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox3_KeyPress_1);
             // 
             // label6
             // 
@@ -161,6 +165,7 @@ namespace aplikasi_kasir_minimarket
             this.dataGridView2.Location = new System.Drawing.Point(42, 344);
             this.dataGridView2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dataGridView2.Name = "dataGridView2";
+            this.dataGridView2.ReadOnly = true;
             this.dataGridView2.RowHeadersWidth = 62;
             this.dataGridView2.Size = new System.Drawing.Size(644, 170);
             this.dataGridView2.TabIndex = 21;
@@ -285,7 +290,9 @@ namespace aplikasi_kasir_minimarket
             this.Controls.Add(this.label1);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "manajemenproduk";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Manajemen Produk";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.manajemenproduk_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.ResumeLayout(false);

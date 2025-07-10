@@ -58,13 +58,9 @@ namespace aplikasi_kasir_minimarket
                 chart1.Series.Add(series);
 
             }
-            catch (SqlException ex)
-            {
-                MessageBox.Show("Error database saat mengambil data bulanan: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
             catch (Exception ex)
             {
-                MessageBox.Show("Terjadi kesalahan: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Kesalahan dalam mengoneksikan ke database. Pastikan terhubung ke jaringan yang sama.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -115,13 +111,9 @@ namespace aplikasi_kasir_minimarket
                 chart1.Series.Add(series);
 
             }
-            catch (SqlException ex)
-            {
-                MessageBox.Show(ex.Message, "Error Database", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
             catch (Exception ex)
             {
-                MessageBox.Show("Terjadi kesalahan: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Kesalahan dalam mengoneksikan ke database. Pastikan terhubung ke jaringan yang sama.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -150,7 +142,12 @@ namespace aplikasi_kasir_minimarket
         {
             adminpage admin = new adminpage(nama, username, "admin");
             admin.Show();
-            this.Close();
+            this.Hide();
+        }
+
+        private void grafik_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

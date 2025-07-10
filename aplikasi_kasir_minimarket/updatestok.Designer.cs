@@ -88,6 +88,7 @@ namespace aplikasi_kasir_minimarket
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(238, 26);
             this.textBox2.TabIndex = 4;
+            this.textBox2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox2_KeyPress);
             // 
             // dataGridView1
             // 
@@ -95,6 +96,7 @@ namespace aplikasi_kasir_minimarket
             this.dataGridView1.Location = new System.Drawing.Point(31, 235);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersWidth = 62;
             this.dataGridView1.Size = new System.Drawing.Size(662, 180);
             this.dataGridView1.TabIndex = 6;
@@ -158,6 +160,7 @@ namespace aplikasi_kasir_minimarket
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "updatestok";
             this.Text = "Update Stok";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.updatestok_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

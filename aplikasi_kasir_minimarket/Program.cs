@@ -16,7 +16,7 @@ namespace aplikasi_kasir_minimarket
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new setip());
+            Application.Run(new welcomepage());
         }
     }
 }

@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,7 +28,7 @@ namespace aplikasi_kasir_minimarket
         {
             adminpage admin = new adminpage(nama, username, "admin");
             admin.Show();
-            this.Close();
+            this.Hide();
         }
 
         private void setupReportViewer()
@@ -49,19 +50,30 @@ namespace aplikasi_kasir_minimarket
 
             DataTable dt = new DataTable();
 
-            using (SqlConnection conn = new SqlConnection(connectionStirng))
+            try
             {
-                SqlDataAdapter da = new SqlDataAdapter(query, conn);
-                da.Fill(dt);
+                using (SqlConnection conn = new SqlConnection(connectionStirng))
+                {
+                    SqlDataAdapter da = new SqlDataAdapter(query, conn);
+                    da.Fill(dt);
+                }
+
+                ReportDataSource rds = new ReportDataSource("DataSet1", dt);
+
+                reportViewer1.LocalReport.DataSources.Clear();
+                reportViewer1.LocalReport.DataSources.Add(rds);
+
+                string repotPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Report1.rdlc");
+
+                reportViewer1.LocalReport.ReportPath = repotPath;
+                reportViewer1.RefreshReport();
             }
-
-            ReportDataSource rds = new ReportDataSource("DataSet1", dt);
-
-            reportViewer1.LocalReport.DataSources.Clear();
-            reportViewer1.LocalReport.DataSources.Add(rds);
-
-            reportViewer1.LocalReport.ReportPath = @"C:\PABD\aplikasi_kasir_minimarket\aplikasi_kasir_minimarket\Report1.rdlc";
-            reportViewer1.RefreshReport();
+            catch (Exception ex) {
+                MessageBox.Show("Kesalahan dalam mengoneksikan ke database. Pastikan terhubung ke jaringan yang sama.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                adminpage form = new adminpage(nama, username, "admin");
+                form.Show();
+                this.Hide();
+            }
 
         }
 
@@ -69,6 +81,11 @@ namespace aplikasi_kasir_minimarket
         {
             setupReportViewer();
             this.reportViewer1.RefreshReport();
+        }
+
+        private void reportpenjualan_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

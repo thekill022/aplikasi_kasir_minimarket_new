@@ -35,7 +35,10 @@ namespace aplikasi_kasir_minimarket
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error : " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Kesalahan dalam mengoneksikan ke database. Pastikan terhubung ke jaringan yang sama.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    adminpage form = new adminpage(namaAdmin, username, "admin");
+                    form.Show();
+                    this.Hide();
                 }
             }
         }
@@ -137,7 +140,7 @@ namespace aplikasi_kasir_minimarket
                     catch (Exception ex)
                     {
                         transaction?.Rollback();
-                        MessageBox.Show("error : " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Kesalahan dalam mengoneksikan ke database. Pastikan terhubung ke jaringan yang sama.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         clearForm();
                     }
                 }
@@ -192,7 +195,7 @@ namespace aplikasi_kasir_minimarket
                     catch (Exception ex)
                     {
                         transaction?.Rollback();
-                        MessageBox.Show("error : " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Kesalahan dalam mengoneksikan ke database. Pastikan terhubung ke jaringan yang sama.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         clearForm();
                     }
                 }
@@ -245,7 +248,7 @@ namespace aplikasi_kasir_minimarket
                     catch (Exception ex)
                     {
                         transaction?.Rollback();
-                        MessageBox.Show("error : " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Kesalahan dalam mengoneksikan ke database. Pastikan terhubung ke jaringan yang sama.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         clearForm();
                     }
                 }
@@ -271,7 +274,24 @@ namespace aplikasi_kasir_minimarket
         {
             adminpage admin = new adminpage(namaAdmin, username, "admin");
             admin.Show();
-            this.Close();
+            this.Hide();
+        }
+
+        private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (char.IsLetter(e.KeyChar) || e.KeyChar == ' ' || char.IsControl(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void manajemenkategori_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

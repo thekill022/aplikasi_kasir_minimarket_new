@@ -34,7 +34,10 @@ namespace aplikasi_kasir_minimarket
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error : " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Kesalahan dalam mengoneksikan ke database. Pastikan terhubung ke jaringan yang sama.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    adminpage form = new adminpage(namaAdmin, username, "admin");
+                    form.Show();
+                    this.Hide();
                 }
             }
         }
@@ -59,7 +62,7 @@ namespace aplikasi_kasir_minimarket
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error : " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Kesalahan dalam mengoneksikan ke database. Pastikan terhubung ke jaringan yang sama.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -124,14 +127,6 @@ namespace aplikasi_kasir_minimarket
             EnsureIndexes();
             loadDataKategori();
             loadDataProduk("");
-        }
-
-        private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-            {
-                e.Handled = true;
-            }
         }
 
         private void textBox3_KeyPress(object sender, KeyPressEventArgs e)
@@ -202,7 +197,7 @@ namespace aplikasi_kasir_minimarket
                     catch (Exception ex)
                     {
                         transaction?.Rollback();
-                        MessageBox.Show("error : " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Kesalahan dalam mengoneksikan ke database. Pastikan terhubung ke jaringan yang sama.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         clearForm();
                     }
                 }
@@ -259,7 +254,7 @@ namespace aplikasi_kasir_minimarket
                     catch (Exception ex)
                     {
                         transaction?.Rollback();
-                        MessageBox.Show("error : " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Kesalahan dalam mengoneksikan ke database. Pastikan terhubung ke jaringan yang sama.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         clearForm();
                     }
                 }
@@ -312,7 +307,7 @@ namespace aplikasi_kasir_minimarket
                     catch (Exception ex)
                     {
                         transaction?.Rollback();
-                        MessageBox.Show("error : " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Kesalahan dalam mengoneksikan ke database. Pastikan terhubung ke jaringan yang sama.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         clearForm();
                     }
                 }
@@ -364,7 +359,53 @@ namespace aplikasi_kasir_minimarket
         {
             adminpage admin = new adminpage(namaAdmin, username, "admin");
             admin.Show();
-            this.Close();
+            this.Hide();
+        }
+
+        private void textBox4_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (char.IsDigit(e.KeyChar) || char.IsLetter(e.KeyChar) || e.KeyChar == '(' || e.KeyChar == ')' || e.KeyChar == (char) Keys.Back)
+            {
+                e.Handled = false;
+            } else
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void textBox3_KeyPress_1(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != '\b')
+            {
+                e.Handled = true;
+            }
+
+            TextBox tb = sender as TextBox;
+
+            if (tb.Text == "" && e.KeyChar == '0')
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void textBox2_KeyPress_1(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != '\b')
+            {
+                e.Handled = true;
+            }
+
+            TextBox tb = sender as TextBox;
+
+            if (tb.Text == "" && e.KeyChar == '0')
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void manajemenproduk_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }
